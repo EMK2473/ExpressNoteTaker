@@ -3,13 +3,11 @@ const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const path = require('path');
 
-
 router.get("/api/notes", async (req, res) => {
   const dbPath = path.join(__dirname, '../db/db.json')
   const dbArray = await JSON.parse(fs.readFileSync(dbPath, "utf8"))
   res.json(dbArray);
 });
-
 
 router.post("/api/notes", (req, res) => {
   const dbPath = path.join(__dirname, '../db/db.json')
