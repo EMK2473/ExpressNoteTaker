@@ -1,6 +1,7 @@
 const router = require("express").Router(); // declaring the Router method from express to eport these HTML routes for HTML GET reqs
 const { v4: uuidv4 } = require("uuid"); // 'Universally Unique Identifier' module
 const fs = require("fs");
+const path = require('path');
 
 // * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 // * `POST /api/notes` should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
@@ -18,8 +19,9 @@ const fs = require("fs");
 // take res object and json it for the client to to read new dbArray array
 
 // when client wants to GET /notes(req), then server returns(res) the db.json as a JSON response called: dbArray;
-router.get("./api/notes", async (req, res) => {
-  const dbArray = await JSON.parse(fs.readFileSync("./db/db.json", "utf8"))
+router.get("/api/notes", async (req, res) => {
+  const dbPath = path.join(__dirname, '../db/db.json')
+  const dbArray = await JSON.parse(fs.readFileSync(dbPath, "utf8"))
   res.json(dbArray);
 });
 
@@ -39,7 +41,8 @@ router.get("./api/notes", async (req, res) => {
 // then we JSON.stringify the JSON'd dbArray, and write thhe postData into the file (essentially appending it)
 // we then json the dbArray and return it as the response
 
-router.post("./api/notes", (req, res) => {
+router.post("/api/notes", (req, res) => {
+  const dbPath = path.join(__dirname, '../db/db.json')
   const dbArray = JSON.parse(fs.readFileSync("db/db.json", "utf8"));
   const postData = {
     title: req.body.title,
@@ -47,7 +50,7 @@ router.post("./api/notes", (req, res) => {
     id: uuidv4(),
   };
   dbArray.push(postData);
-  fs.writeFileSync("db/db.json", JSON.stringify(dbArray));
+  fs.writeFileSync(dbPath, JSON.stringify(dbArray));
   res.json(dbArray);
 });
 
