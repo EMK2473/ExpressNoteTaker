@@ -1,13 +1,20 @@
 const { error } = require('console');
 const fs = require('fs');
-const router = require('express').Router(); // declaring the Router Method from express to eport these routes for these html pages from GET reqs
+const router = require('express').Router(); // declaring the Router method from express to eport these HTML routes for HTML GET reqs
 const { v4: uuidv4 } = require('uuid'); // 'Universally Unique Identifier' module 
-// requires npm i uuid@3.4.0
 
-// I need to:
+
+
+// * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
+// * `POST /api/notes` should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
+
+
+// ToDo's:
+// I need to...
+
 // make a route handler for post reqs
-// make it read db.json sychronously, parse db.json object into a JSON object
-// store JSON object in new variable dbArray
+// make it read db.json sychronously, and then parse db.json object into a JSON object
+// store JSON object in new variable: dbArray
 // store new data from req.body in variable with new uuid: newData
 // append newData from JSON object into the db.json array, making dbArray push newData
 // taking the parsed data and pushing it into new dbArray array
@@ -16,13 +23,14 @@ const { v4: uuidv4 } = require('uuid'); // 'Universally Unique Identifier' modul
 
 
 
-
-// define GET reqs to this route's end point @ './api/notes'
+// when client wants to GET /notes(req), then server returns(res) the db.json as a JSON response called: dbArray;
 router.get('./api/notes', async (req, res) =>{
     const dbArray = await JSON.parse(fs.readFileSync('db/db.json', 'utf8')); 
     res.json(dbArray)
 }); 
 
+// notes:
+// defines GET reqs to this route's end point @ './api/notes'
 // ensuring fs.readFileSync is treated in asynchronous manner, allowing OTHER async functions to continue while waiting for file reading to complete
 // using 'await' INSIDE an async function BECAUSE readFileSync is synchronous
 // seems more effecient than handling promise with .then
@@ -46,19 +54,26 @@ router.get('./api/notes', async (req, res) =>{
 // });
 
 
-// define POST reqs to this route's end point @ './api/notes'
+// when client wants to POST to /notes (req), then server returns(res) the db.json as a JSON response called dbArray
+// we take the clients "postData" and add a 'uuid', then push the postData into the dbArray
+// then we JSON.stringify the JSON'd dbArray, and write thhe postData into the file (essentially appending it)
+// we then json the dbArray and return it as the response
 router.post('./api/notes', (req, res) =>{
     const dbArray = JSON.parse(fs.readFileSync('db/db.json', 'utf8'));
-    const newData = {
+    const postData = {
         title: req.body.title,
         text: req.body.text,
         id: uuidv4(),
     };
-    dbArray.push(newData)
+    dbArray.push(postData)
     fs.writeFileSync('db/db.json', JSON.stringify(dbArray))
     res.json(dbArray)
 });
 
+
+
+// notes:
+// defines POST reqs to this route's end point @ './api/notes'
 // route handler for POST reqs
 // reads db.json synchronously, parses db.json into js object. 
 // js object is stored in dbArray variable. new js object = dbArray

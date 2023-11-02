@@ -1,4 +1,3 @@
-let noteForm;
 let noteTitle;
 let noteText;
 let saveNoteBtn;
@@ -6,7 +5,6 @@ let newNoteBtn;
 let noteList;
 
 if (window.location.pathname === "/notes") {
-  noteForm = document.querySelector(".note-form");
   noteTitle = document.querySelector(".note-title");
   noteText = document.querySelector(".note-textarea");
   saveNoteBtn = document.querySelector(".save-note");
@@ -55,16 +53,13 @@ const deleteNote = (id) =>
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
-  hide(clearBtn);
 
   if (activeNote.id) {
-    show(newNoteBtn);
     noteTitle.setAttribute("readonly", true);
     noteText.setAttribute("readonly", true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
   } else {
-    hide(newNoteBtn);
     noteTitle.removeAttribute("readonly");
     noteText.removeAttribute("readonly");
     noteTitle.value = "";
@@ -104,28 +99,25 @@ const handleNoteDelete = (e) => {
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
-  activeNote = JSON.parse(e.target.parentElement.getAttribute("data-note"));
+  activeNote = {}; // changed to be an object, allowing user to enter new notes
   renderActiveNote();
 };
+
 
 // Sets the activeNote to and empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
   activeNote = {};
-  show(clearBtn);
   renderActiveNote();
 };
 
-// Renders the appropriate buttons based on the state of the form
-const handleRenderBtns = () => {
-  show(clearBtn);
-  if (!noteTitle.value.trim() && !noteText.value.trim()) {
-    hide(clearBtn);
-  } else if (!noteTitle.value.trim() || !noteText.value.trim()) {
-    hide(saveNoteBtn);
+// added / edited handleRenderBtns to handle and render hiding/showing of saveNoteBtn
+const handleRenderSaveBtn = () => {
+  if (!noteTitle.value.trim() || !noteText.Value.trim()){
+    hide(saveNoteBtn)
   } else {
-    show(saveNoteBtn);
+    show(saveNoteBtn)
   }
-};
+}
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
@@ -188,7 +180,7 @@ if (window.location.pathname === "/notes") {
   saveNoteBtn.addEventListener("click", handleNoteSave);
   newNoteBtn.addEventListener("click", handleNewNoteView);
   clearBtn.addEventListener("click", renderActiveNote);
-  noteForm.addEventListener("input", handleRenderBtns);
+  noteForm.addEventListener("input", handleRenderSaveBtn);
 }
 
 getAndRenderNotes();
