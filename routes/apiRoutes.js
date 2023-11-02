@@ -41,19 +41,6 @@ router.get('./api/notes', async (req, res) =>{
 // async await reads contents of db.json snychronously, reading as text and returning as string
 
 
-// alternate method for learning
-// router.get('./api/notes', async (req, res)=>{
-//     try{ 
-//         const data = await fs.promises.readFile('db/db.json', 'utf8');
-//         const dB = JSON.parse(data)
-//         res.json(dB);
-//     } catch (error) {
-//     console.error(error)
-//     res.status(500).send('Server Error')
-//     }
-// });
-
-
 // when client wants to POST to /notes (req), then server returns(res) the db.json as a JSON response called dbArray
 // we take the clients "postData" and add a 'uuid', then push the postData into the dbArray
 // then we JSON.stringify the JSON'd dbArray, and write thhe postData into the file (essentially appending it)
