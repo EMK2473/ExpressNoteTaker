@@ -15,5 +15,3 @@ app.use(apiRoutes); // mounts router for handling API routes
 app.listen(PORT, () => {
   console.log(`Running at http://localhost:${PORT}`);
 }); // starts server and listens for incoming requests at localhost:3001
-
-
