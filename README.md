@@ -42,11 +42,13 @@ nodemon server.js
 
 ## Link to Video Instructions
 
-https://drive.google.com/file/d/1ntu1-C9Xmqjvbzb9fUME1FJ8unvIK7nk/view
+https://docs.google.com/document/d/1KubNfEWErAFVXc4BnuuXFo73zfFTgK532g4JLTN4uws/edit
 
 ## Screenshot
 
-![screenshot of application](n/a)
+![screenshot of root application](./assets/rootScreenshot.png)
+
+![screenshot of notes application](./assets/notesScreenshot.png)
 
 ## Questions
 
