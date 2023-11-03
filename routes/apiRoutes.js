@@ -1,17 +1,19 @@
 const router = require("express").Router();
-const { v4: uuidv4 } = require("uuid"); 
+const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
-const path = require('path');
+const path = require("path");
+const { json } = require("express");
+const { stringify } = require("querystring");
 
 router.get("/api/notes", async (req, res) => {
-  const dbPath = path.join(__dirname, '../db/db.json')
-  const dbArray = await JSON.parse(fs.readFileSync(dbPath, "utf8"))
+  const dbPath = path.join(__dirname, "../db/db.json");
+  const dbArray = await JSON.parse(fs.readFileSync(dbPath, "utf8"));
   res.json(dbArray);
 }); // api route handler for HTTP GET reqs at api/notes
 
 router.post("/api/notes", (req, res) => {
-  const dbPath = path.join(__dirname, '../db/db.json')
-  const dbArray = JSON.parse(fs.readFileSync("db/db.json", "utf8"));
+  const dbPath = path.join(__dirname, "../db/db.json");
+  const dbArray = JSON.parse(fs.readFileSync(dbPath, "utf8"));
   const postData = {
     title: req.body.title,
     text: req.body.text,
@@ -21,5 +23,16 @@ router.post("/api/notes", (req, res) => {
   fs.writeFileSync(dbPath, JSON.stringify(dbArray));
   res.json(dbArray);
 }); // route handler for HTTP POST reqs at api/notes
+
+// router.delete("/api/notes/:id", (req, res) => {
+//   const dbPath = path.join(__dirname, "../db/db.json");
+//   let data = fs.readFileSync("db/db.json", "utf8");
+//   const jsonData = JSON.parse(data);
+//   const newNote = jsonData.filter((note) => {
+//     return note.id !== req.params.id;
+//   });
+//   fs.writeFileSync("db/db.json", JSON.stringify(newNote));
+//   res.json("Deleted Note");
+// });
 
 module.exports = router;
