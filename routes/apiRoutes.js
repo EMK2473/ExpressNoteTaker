@@ -7,7 +7,7 @@ router.get("/api/notes", async (req, res) => {
   const dbPath = path.join(__dirname, '../db/db.json')
   const dbArray = await JSON.parse(fs.readFileSync(dbPath, "utf8"))
   res.json(dbArray);
-});
+}); // api route handler for HTTP GET reqs at api/notes
 
 router.post("/api/notes", (req, res) => {
   const dbPath = path.join(__dirname, '../db/db.json')
@@ -20,6 +20,6 @@ router.post("/api/notes", (req, res) => {
   dbArray.push(postData);
   fs.writeFileSync(dbPath, JSON.stringify(dbArray));
   res.json(dbArray);
-});
+}); // route handler for HTTP POST reqs at api/notes
 
 module.exports = router;
