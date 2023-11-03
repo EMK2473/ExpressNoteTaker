@@ -24,15 +24,5 @@ router.post("/api/notes", (req, res) => {
   res.json(dbArray);
 }); // route handler for HTTP POST reqs at api/notes
 
-// router.delete("/api/notes/:id", (req, res) => {
-//   const dbPath = path.join(__dirname, "../db/db.json");
-//   let data = fs.readFileSync("db/db.json", "utf8");
-//   const jsonData = JSON.parse(data);
-//   const newNote = jsonData.filter((note) => {
-//     return note.id !== req.params.id;
-//   });
-//   fs.writeFileSync("db/db.json", JSON.stringify(newNote));
-//   res.json("Deleted Note");
-// });
 
 module.exports = router;
