@@ -32,7 +32,7 @@
     nodemon server.js
   
     ## Link to Video Instructions
-    n/a
+    https://drive.google.com/file/d/1ntu1-C9Xmqjvbzb9fUME1FJ8unvIK7nk/view
   
     ## Screenshot
     ![screenshot of application](n/a)
