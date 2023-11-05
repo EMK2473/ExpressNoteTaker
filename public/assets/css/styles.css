@@ -45,7 +45,7 @@ body {
 .note-title:read-only,
 .note-textarea:read-only {
   color: #757575;
-  font-size: 200%;
+  font-size: 180%;
 }
 
 .list-container .card {
